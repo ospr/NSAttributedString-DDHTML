@@ -199,7 +199,7 @@
             }
     
             if (fontName == nil && fontSize != nil) {
-                [nodeAttributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:[fontSize doubleValue]] range:nodeAttributedStringRange];
+                [nodeAttributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:(CGFloat)[fontSize doubleValue]] range:nodeAttributedStringRange];
             }
             else if (fontName != nil && fontSize == nil) {
                 [nodeAttributedString addAttribute:NSFontAttributeName value:[self fontOrSystemFontForName:fontName size:12.0] range:nodeAttributedStringRange];
@@ -260,34 +260,34 @@
             }
             
             if ([attributeDictionary objectForKey:@"firstlineheadindent"]) {
-                paragraphStyle.firstLineHeadIndent = [[attributeDictionary objectForKey:@"firstlineheadindent"] doubleValue];
+                paragraphStyle.firstLineHeadIndent = (CGFloat)[[attributeDictionary objectForKey:@"firstlineheadindent"] doubleValue];
             }
             if ([attributeDictionary objectForKey:@"headindent"]) {
-                paragraphStyle.headIndent = [[attributeDictionary objectForKey:@"headindent"] doubleValue];
+                paragraphStyle.headIndent = (CGFloat)[[attributeDictionary objectForKey:@"headindent"] doubleValue];
             }
             if ([attributeDictionary objectForKey:@"hyphenationfactor"]) {
-                paragraphStyle.hyphenationFactor = [[attributeDictionary objectForKey:@"hyphenationfactor"] doubleValue];
+                paragraphStyle.hyphenationFactor = (CGFloat)[[attributeDictionary objectForKey:@"hyphenationfactor"] doubleValue];
             }
             if ([attributeDictionary objectForKey:@"lineheightmultiple"]) {
-                paragraphStyle.lineHeightMultiple = [[attributeDictionary objectForKey:@"lineheightmultiple"] doubleValue];
+                paragraphStyle.lineHeightMultiple = (CGFloat)[[attributeDictionary objectForKey:@"lineheightmultiple"] doubleValue];
             }
             if ([attributeDictionary objectForKey:@"linespacing"]) {
-                paragraphStyle.lineSpacing = [[attributeDictionary objectForKey:@"linespacing"] doubleValue];
+                paragraphStyle.lineSpacing = (CGFloat)[[attributeDictionary objectForKey:@"linespacing"] doubleValue];
             }
             if ([attributeDictionary objectForKey:@"maximumlineheight"]) {
-                paragraphStyle.maximumLineHeight = [[attributeDictionary objectForKey:@"maximumlineheight"] doubleValue];
+                paragraphStyle.maximumLineHeight = (CGFloat)[[attributeDictionary objectForKey:@"maximumlineheight"] doubleValue];
             }
             if ([attributeDictionary objectForKey:@"minimumlineheight"]) {
-                paragraphStyle.minimumLineHeight = [[attributeDictionary objectForKey:@"minimumlineheight"] doubleValue];
+                paragraphStyle.minimumLineHeight = (CGFloat)[[attributeDictionary objectForKey:@"minimumlineheight"] doubleValue];
             }
             if ([attributeDictionary objectForKey:@"paragraphspacing"]) {
-                paragraphStyle.paragraphSpacing = [[attributeDictionary objectForKey:@"paragraphspacing"] doubleValue];
+                paragraphStyle.paragraphSpacing = (CGFloat)[[attributeDictionary objectForKey:@"paragraphspacing"] doubleValue];
             }
             if ([attributeDictionary objectForKey:@"paragraphspacingbefore"]) {
-                paragraphStyle.paragraphSpacingBefore = [[attributeDictionary objectForKey:@"paragraphspacingbefore"] doubleValue];
+                paragraphStyle.paragraphSpacingBefore = (CGFloat)[[attributeDictionary objectForKey:@"paragraphspacingbefore"] doubleValue];
             }
             if ([attributeDictionary objectForKey:@"tailindent"]) {
-                paragraphStyle.tailIndent = [[attributeDictionary objectForKey:@"tailindent"] doubleValue];
+                paragraphStyle.tailIndent = (CGFloat)[[attributeDictionary objectForKey:@"tailindent"] doubleValue];
             }
             
             [nodeAttributedString addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:nodeAttributedStringRange];
@@ -331,7 +331,7 @@
     char *p;
     NSUInteger hexValue = strtoul([hexString cStringUsingEncoding:NSUTF8StringEncoding], &p, 16);
 
-    return [UIColor colorWithRed:((hexValue & 0xff0000) >> 16) / 255.0 green:((hexValue & 0xff00) >> 8) / 255.0 blue:(hexValue & 0xff) / 255.0 alpha:1.0];
+    return [UIColor colorWithRed:(CGFloat)(((hexValue & 0xff0000) >> 16) / 255.0) green:(CGFloat)(((hexValue & 0xff00) >> 8) / 255.0) blue:(CGFloat)((hexValue & 0xff) / 255.0) alpha:1.0];
 }
 
 @end
