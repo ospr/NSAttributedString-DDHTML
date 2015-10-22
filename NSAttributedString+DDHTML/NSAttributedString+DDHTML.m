@@ -35,16 +35,34 @@
 
 + (NSAttributedString *)attributedStringFromHTML:(NSString *)htmlString
 {
+#if TARGET_OS_WATCH
+    CGFloat fontSize = [UIFont preferredFontForTextStyle:UIFontTextStyleBody].pointSize;
+    UIFont *normalFont = [UIFont systemFontOfSize:fontSize];
+    UIFont *boldFont = [UIFont boldSystemFontOfSize:fontSize];
+    UIFont *italicFont = [UIFont italicSystemFontOfSize:fontSize];
+#else
+    UIFont *normalFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+    UIFont *boldFont = [UIFont boldSystemFontOfSize:[UIFont systemFontSize]];
+    UIFont *italicFont = [UIFont italicSystemFontOfSize:[UIFont systemFontSize]];
+#endif
+    
     return [self attributedStringFromHTML:htmlString
-                               normalFont:[UIFont systemFontOfSize:[UIFont systemFontSize]]
-                                 boldFont:[UIFont boldSystemFontOfSize:[UIFont systemFontSize]]
-                               italicFont:[UIFont italicSystemFontOfSize:[UIFont systemFontSize]]];
+                               normalFont:normalFont
+                                 boldFont:boldFont
+                               italicFont:italicFont];
 }
 
 + (NSAttributedString *)attributedStringFromHTML:(NSString *)htmlString boldFont:(UIFont *)boldFont italicFont:(UIFont *)italicFont
 {
+#if TARGET_OS_WATCH
+    CGFloat fontSize = [UIFont preferredFontForTextStyle:UIFontTextStyleBody].pointSize;
+    UIFont *normalFont = [UIFont systemFontOfSize:fontSize];
+#else
+    UIFont *normalFont = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+#endif
+    
     return [self attributedStringFromHTML:htmlString
-                               normalFont:[UIFont systemFontOfSize:[UIFont systemFontSize]]
+                               normalFont:normalFont
                                  boldFont:boldFont
                                italicFont:italicFont];
 }
@@ -160,6 +178,7 @@
         
         // Shadow Tag
         else if (strncmp("shadow", (const char *)xmlNode->name, strlen((const char *)xmlNode->name)) == 0) {
+#if __has_include(<UIKit/NSShadow.h>)
             NSShadow *shadow = [[NSShadow alloc] init];
             shadow.shadowOffset = CGSizeMake(0, 0);
             shadow.shadowBlurRadius = 2.0;
@@ -176,6 +195,7 @@
             }
             
             [nodeAttributedString addAttribute:NSShadowAttributeName value:shadow range:nodeAttributedStringRange];
+#endif
         }
         
         // Font Tag
@@ -308,7 +328,7 @@
         // New Lines
         else if (strncmp("br", (const char *)xmlNode->name, strlen((const char *)xmlNode->name)) == 0) {
             [nodeAttributedString appendAttributedString:[[NSAttributedString alloc] initWithString:@"\n"]];
-        }
+        }        
     }
     
     return nodeAttributedString;
